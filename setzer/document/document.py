@@ -141,6 +141,22 @@ class Document(Observable):
         self.update_save_date()
         return True
 
+    def save_tmp(self):
+        if self.filename == None: return False
+
+        text = self.get_all_text()
+        if text == None: return False
+
+        dirname = os.path.dirname(self.filename)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
+
+        with open(self.filename+'.tmp', 'w') as f:
+            f.write(text)
+        self.update_save_date()
+        self.controller.deleted_on_disk_dialog_shown_after_last_save = False
+        self.source_buffer.set_modified(False)
+
     def save_to_disk(self):
         if self.filename == None: return False
 
