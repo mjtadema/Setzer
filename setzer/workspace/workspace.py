@@ -19,6 +19,7 @@ import gi
 import os.path
 import time
 import pickle
+from gi.repository import Glib
 
 from setzer.document.document import Document
 import setzer.document.build_system.build_system as build_system
@@ -54,6 +55,8 @@ class Workspace(Observable):
 
         self.active_document = None
 
+        self.autosave_timeout = None
+
         self.recently_opened_session_files = dict()
         self.session_file_opened = None
 
@@ -77,6 +80,15 @@ class Workspace(Observable):
         self.help_panel = help_panel.HelpPanel(self)
         self.build_log = build_log.BuildLog(self)
         self.controller = workspace_controller.WorkspaceController(self)
+
+    def init_autosave_timeout(self):
+        if self.autosave_timeout:
+            Glib.source_remove(self.autosave_timeout)
+        if not self.settings.get_value('preferences', 'enable_autosave'): return
+        autosave_interval = self.settings.get_value('preferences', 'autosave_interval')
+        # in minutes so convert to seconds
+        autosave_interval_s = autosave_interval * 60
+        self.autosave_timeout = Glib.timeout_add_seconds(autosave_interval_s, self.save_tmp)
 
     def open_document_by_filename(self, filename):
         if filename == None: return None
@@ -286,6 +298,11 @@ class Workspace(Observable):
                 self.set_active_document(self.open_documents[-1])
             self.session_file_opened = filename
             self.update_recently_opened_session_file(filename, notify=True)
+
+    def save_tmp(self):
+        """Save all unsaved documents to a tmpfile"""
+        for document in self.get_unsaved_documents():
+            document.save_tmp()
 
     def save_to_disk(self):
         try: filehandle = open(os.path.join(self.pathname, 'workspace.pickle'), 'wb')
