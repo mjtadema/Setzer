@@ -90,7 +90,7 @@ class Workspace(Observable):
         autosave_interval = self.settings.get_value('preferences', 'autosave_interval')
         # in minutes so convert to seconds
         autosave_interval_s = autosave_interval * 60
-        self.autosave_timeout = GLib.timeout_add_seconds(autosave_interval_s, self.save_tmp)
+        self.autosave_timeout = GLib.timeout_add_seconds(autosave_interval_s, self.autosave)
         print("Autosave timeout initialized with:",autosave_interval_s,"seconds")
 
     def open_document_by_filename(self, filename):
@@ -302,7 +302,7 @@ class Workspace(Observable):
             self.session_file_opened = filename
             self.update_recently_opened_session_file(filename, notify=True)
 
-    def save_tmp(self):
+    def autosave(self):
         """Save all unsaved documents to a tmpfile"""
         for document in self.get_unsaved_documents():
             print("saving: ", document.filename)
