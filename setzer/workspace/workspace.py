@@ -304,6 +304,7 @@ class Workspace(Observable):
     def save_tmp(self):
         """Save all unsaved documents to a tmpfile"""
         for document in self.get_unsaved_documents():
+            print("saving: ", document.filename)
             document.save_tmp()
 
     def save_to_disk(self):
