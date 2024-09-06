@@ -91,6 +91,7 @@ class Workspace(Observable):
         # in minutes so convert to seconds
         autosave_interval_s = autosave_interval * 60
         self.autosave_timeout = GLib.timeout_add_seconds(autosave_interval_s, self.save_tmp)
+        print("Autosave timeout initialized with:",autosave_interval_s,"seconds")
 
     def open_document_by_filename(self, filename):
         if filename == None: return None
