@@ -16,10 +16,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>
 
 import gi
+gi.require_version('GtkSource', '5')
+from gi.repository import GtkSource
+from gi.repository import GLib
 import os.path
 import time
 import pickle
-from gi.repository import Glib
 
 from setzer.document.document import Document
 import setzer.document.build_system.build_system as build_system
@@ -83,12 +85,12 @@ class Workspace(Observable):
 
     def init_autosave_timeout(self):
         if self.autosave_timeout:
-            Glib.source_remove(self.autosave_timeout)
+            GLib.source_remove(self.autosave_timeout)
         if not self.settings.get_value('preferences', 'enable_autosave'): return
         autosave_interval = self.settings.get_value('preferences', 'autosave_interval')
         # in minutes so convert to seconds
         autosave_interval_s = autosave_interval * 60
-        self.autosave_timeout = Glib.timeout_add_seconds(autosave_interval_s, self.save_tmp)
+        self.autosave_timeout = GLib.timeout_add_seconds(autosave_interval_s, self.save_tmp)
 
     def open_document_by_filename(self, filename):
         if filename == None: return None
