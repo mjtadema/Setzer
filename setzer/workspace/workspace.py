@@ -83,7 +83,7 @@ class Workspace(Observable):
         self.build_log = build_log.BuildLog(self)
         self.controller = workspace_controller.WorkspaceController(self)
 
-    def init_autosave_timeout(self):
+    def init_autosave_timeout(self, *args, **kwargs):
         if self.autosave_timeout:
             GLib.source_remove(self.autosave_timeout)
         if not self.settings.get_value('preferences', 'enable_autosave'): return
