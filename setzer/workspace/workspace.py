@@ -86,6 +86,7 @@ class Workspace(Observable):
     def init_autosave_timeout(self, *args, **kwargs):
         if self.autosave_timeout:
             GLib.source_remove(self.autosave_timeout)
+            self.autosave_timeout = None
         if not self.settings.get_value('preferences', 'enable_autosave'): return
         autosave_interval = self.settings.get_value('preferences', 'autosave_interval')
         # in minutes so convert to seconds
