@@ -307,6 +307,7 @@ class Workspace(Observable):
         for document in self.get_unsaved_documents():
             print("saving: ", document.filename)
             document.save_tmp()
+        self.init_autosave_timeout()
 
     def save_to_disk(self):
         try: filehandle = open(os.path.join(self.pathname, 'workspace.pickle'), 'wb')
