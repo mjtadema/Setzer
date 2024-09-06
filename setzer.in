@@ -138,6 +138,9 @@ class MainApplicationController(Adw.Application):
         self.shortcuts = shortcuts.Shortcuts()
         self.workspace.actions.actions['quit'].connect('activate', self.on_quit_action)
 
+        # init autosave timer
+        self.workspace.init_autosave_timeout()
+
     def save_window_state(self):
         main_window = self.main_window
         self.settings.set_value('window_state', 'width', main_window.get_property('default-width'))
