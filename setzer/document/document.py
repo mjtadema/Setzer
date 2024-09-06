@@ -153,9 +153,6 @@ class Document(Observable):
 
         with open(self.filename+'.bak', 'w') as f:
             f.write(text)
-        self.update_save_date()
-        self.controller.deleted_on_disk_dialog_shown_after_last_save = False
-        self.source_buffer.set_modified(False)
 
     def save_to_disk(self):
         if self.filename == None: return False
