@@ -151,7 +151,7 @@ class Document(Observable):
         if not os.path.exists(dirname):
             os.makedirs(dirname)
 
-        with open(self.filename+'.tmp', 'w') as f:
+        with open(self.filename+'.bak', 'w') as f:
             f.write(text)
         self.update_save_date()
         self.controller.deleted_on_disk_dialog_shown_after_last_save = False
