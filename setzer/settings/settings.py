@@ -89,6 +89,10 @@ class Settings(Observable):
         self.defaults['preferences']['update_matching_blocks'] = True
 
         self.defaults['preferences']['use_system_font'] = True
+
+        self.defaults['preferences']['enable_autosave'] = True
+        self.defaults['preferences']['autosave_interval'] = 10
+
         textview = Gtk.TextView()
         textview.set_monospace(True)
         font_string = textview.get_pango_context().get_font_description().to_string()

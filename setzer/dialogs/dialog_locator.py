@@ -52,7 +52,7 @@ class DialogLocator():
         dialogs['keyboard_shortcuts'] = KeyboardShortcutsDialog(main_window)
         dialogs['open_document'] = OpenDocumentDialog(main_window, workspace)
         dialogs['open_session'] = OpenSessionDialog(main_window, workspace)
-        dialogs['preferences'] = PreferencesDialog(main_window)
+        dialogs['preferences'] = PreferencesDialog(main_window, workspace)
         dialogs['replace_confirmation'] = ReplaceConfirmationDialog(main_window)
         dialogs['save_document'] = SaveDocumentDialog(main_window, workspace)
         dialogs['save_session'] = SaveSessionDialog(main_window, workspace)

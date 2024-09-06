@@ -24,13 +24,15 @@ import setzer.dialogs.preferences.pages.page_build_system as page_build_system
 import setzer.dialogs.preferences.pages.page_editor as page_editor
 import setzer.dialogs.preferences.pages.page_font_color as page_font_color
 import setzer.dialogs.preferences.pages.page_autocomplete as page_autocomplete
+import setzer.dialogs.preferences.pages.page_autosave as page_autosave
 from setzer.app.service_locator import ServiceLocator
 
 
 class PreferencesDialog(object):
 
-    def __init__(self, main_window):
+    def __init__(self, main_window, workspace):
         self.main_window = main_window
+        self.workspace = workspace
         self.settings = ServiceLocator.get_settings()
 
     def run(self):
@@ -44,16 +46,19 @@ class PreferencesDialog(object):
         self.page_editor = page_editor.PageEditor(self, self.settings)
         self.page_font_color = page_font_color.PageFontColor(self, self.settings, self.main_window)
         self.page_autocomplete = page_autocomplete.PageAutocomplete(self, self.settings)
+        self.page_autosave = page_autosave.PageAutosave(self, self.settings, self.workspace)
 
         self.view.notebook.append_page(self.page_build_system.view, Gtk.Label.new(_('Build System')))
         self.view.notebook.append_page(self.page_editor.view, Gtk.Label.new(_('Editor')))
         self.view.notebook.append_page(self.page_font_color.view, Gtk.Label.new(_('Font & Colors')))
         self.view.notebook.append_page(self.page_autocomplete.view, Gtk.Label.new(_('Autocomplete')))
+        self.view.notebook.append_page(self.page_autosave.view, Gtk.Label.new(_('Autosave')))
 
         self.page_build_system.init()
         self.page_editor.init()
         self.page_font_color.init()
         self.page_autocomplete.init()
+        self.page_autosave.init()
 
     def on_check_button_toggle(self, button, preference_name):
         self.settings.set_value('preferences', preference_name, button.get_active())
