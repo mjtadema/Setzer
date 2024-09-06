@@ -91,7 +91,7 @@ class Settings(Observable):
         self.defaults['preferences']['use_system_font'] = True
 
         self.defaults['preferences']['enable_autosave'] = True
-        self.defaults['preferences']['autosave_interval'] = 10
+        self.defaults['preferences']['autosave_interval'] = 5
 
         textview = Gtk.TextView()
         textview.set_monospace(True)
