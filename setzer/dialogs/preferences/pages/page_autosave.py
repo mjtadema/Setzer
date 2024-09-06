@@ -66,8 +66,8 @@ class PageAutosaveView(Gtk.Box):
         label.set_margin_bottom(6)
         self.append(label)
         box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
-        self.autosave_interval = Gtk.SpinButton.new_with_range(5, 30, 5)
-        box.append(self.autosave_interval)
+        self.autosave_interval_spinbutton = Gtk.SpinButton.new_with_range(5, 30, 5)
+        box.append(self.autosave_interval_spinbutton)
         self.append(box)
 
 
