@@ -209,6 +209,8 @@ class Actions(object):
 
         if document.filename == None:
             DialogLocator.get_dialog('build_save').run(document)
+        elif set(self.workspace.get_unsaved_documents()) - set([active_document]):
+            DialogLocator.get_dialog('build_save_all').run(document)
         else:
             self.save()
             document.build_system.build_and_forward_sync(active_document)

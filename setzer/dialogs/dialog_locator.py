@@ -18,6 +18,7 @@
 from setzer.dialogs.about.about import AboutDialog
 from setzer.dialogs.add_remove_packages.add_remove_packages import AddRemovePackagesDialog
 from setzer.dialogs.build_save.build_save import BuildSaveDialog
+from setzer.dialogs.build_save_all.build_save_all import BuildSaveAllDialog
 from setzer.dialogs.building_failed.building_failed import BuildingFailedDialog
 from setzer.dialogs.close_confirmation.close_confirmation import CloseConfirmationDialog
 from setzer.dialogs.document_changed_on_disk.document_changed_on_disk import DocumentChangedOnDiskDialog
@@ -44,6 +45,7 @@ class DialogLocator():
         dialogs['about'] = AboutDialog(main_window)
         dialogs['add_remove_packages'] = AddRemovePackagesDialog(main_window)
         dialogs['build_save'] = BuildSaveDialog(main_window, workspace)
+        dialogs['build_save_all'] = BuildSaveAllDialog(main_window, workspace)
         dialogs['document_changed_on_disk'] = DocumentChangedOnDiskDialog(main_window)
         dialogs['document_deleted_on_disk'] = DocumentDeletedOnDiskDialog(main_window)
         dialogs['document_wizard'] = DocumentWizard(main_window)
